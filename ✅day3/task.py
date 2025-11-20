@@ -1,0 +1,1 @@
+# already know and remember everything here if statements and % and logical operators
