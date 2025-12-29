@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates>
+    <t t-name="test_owl1.DogTemplate">
+
+        <div class="m-5" style="max-height:100vh; overflow-y:auto;">
+
+            <!-- header -->
+            <div class="row mt-3">
+
+                <!-- Modal -->
+                <div class="modal fade" id="AddNewModal" tabindex="-1" aria-labelledby="AddNewModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="AddNewModalLabel">Add New Dog</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col">
+                                        Name:
+                                    </div>
+                                    <div class="col">
+                                        <input t-model="state.dog.name" t-att-value="state.dog.name" type="text" class="form-control" placeholder="example:Alex"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        Aggressive:
+                                    </div>
+                                    <div class="col">
+                                        <input 
+                                            type="checkbox"
+                                            t-model="state.dog.is_aggressive"
+                                            t-att-value="state.dog.is_aggressive"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        Color:
+                                    </div>
+                                    <div class="col">
+                                        <input 
+                                            type="color" 
+                                            t-model="state.dog.color" 
+                                            t-att-value="state.dog.color"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" t-on-click="saveDog" data-bs-dismiss="modal">Save</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>   
+                <!-- Modal -->
+
+                <!-- New Button -->
+                <div class="col">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddNewModal">
+                        New
+                    </button>
+            
+                    <button class="btn btn-warning" t-on-click="sayLizard">Say Lizard</button>
+
+                    
+                </div>
+                <!-- New Button -->
+
+                <!-- Search Button -->
+                <div class="col">
+                    <div class="input-group">
+                        <input t-ref="search_input" type="text" class="form-control" placeholder="Search here ...." t-on-keyup="searchDog"/>
+                        <button 
+                            class="btn btn-outline-primary"
+                            t-on-click="searchDog"
+                        >Search</button>
+                    </div>
+                </div>
+                <!-- Search Button -->
+            </div>
+            <!-- header -->
+
+            <!-- body -->
+            <div class="row mt-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Aggressive</th>
+                            <th scope="col">Color</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="state.dogs_list" t-as="dog" t-key="dog.id">
+                            <tr>
+                                <th>
+                                    <t t-esc="dog.id"/>
+                                </th>
+                                <td>
+                                    <t t-esc="dog.name"/>
+                                </td>
+                                <td>
+                                    <input 
+                                        t-att-id="dog.id" 
+                                        type="checkbox" 
+                                        t-att-checked="dog.is_aggressive"
+                                        t-on-click="(e) => this.toggleAggressive(e,dog)"
+                                    />
+                                </td>
+                                <td>
+                                    <input 
+                                        t-att-id="dog.id" 
+                                        type="color" 
+                                        class="form-control form-control-color" 
+                                        t-att-value="dog.color"
+                                        t-on-change="(e) => this.changeColor(e,dog)"
+                                    />
+                                </td>
+                                <td>
+                                    <button 
+                                        class="btn btn-sm btn-success"
+                                        t-on-click="() =>this.editDog(dog)"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#AddNewModal"
+                                    >Edit</button>
+                                </td>
+                                <td>
+                                    <button 
+                                        class="btn btn-sm btn-danger"
+                                        t-on-click="() =>this.deleteDog(dog)"
+                                    >Delete</button>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <!-- body -->
+
+            <!-- footer -->
+            <div class="row">
+            
+            </div>
+        </div>
+    </t>
+</templates>
+
+
+<!-- <h1>Dog Component</h1>
+<p>Value: <t t-esc="state.value"/></p>
+<button t-on-click="() => state.value++">Increase Value</button> -->

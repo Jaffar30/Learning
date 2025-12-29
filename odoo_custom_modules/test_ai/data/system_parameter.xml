@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="system_prompt" model="ir.config_parameter">
+        <field name="key">system_prompt</field>
+        <field name="value">You are an AI assistant that helps users with laptop recommendations.</field>
+    </record>
+
+    <record id="user_prompt" model="ir.config_parameter">
+        <field name="key">user_prompt</field>
+        <field name="value">Give me an [option] on this [value]</field>
+    </record>
+
+    <record id="ai_key" model="ir.config_parameter">
+        <field name="key">ai_key</field>
+        <field name="value">YOUR-KEY</field>
+    </record>
+
+    <record id="ai_appropriate" model="ir.config_parameter">
+        <field name="key">ai_appropriate</field>
+        <field name="value">check if the user prompt is appropriate if not appropriate return no else return yes answer with yes or no only any other words outscope ERP system it consider an appropriate : user prompt [value]</field>
+    </record>
+
+</odoo>

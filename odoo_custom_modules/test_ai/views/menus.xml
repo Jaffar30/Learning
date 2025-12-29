@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="laptop_root_menu"
+        name="Laptops"
+        sequence="0"/>
+
+    <menuitem
+        id="laptop_menu"
+        name="Brand Laptops"
+        action="laptop_action"
+        parent="laptop_root_menu"
+        sequence="10"/>
+
+</odoo>

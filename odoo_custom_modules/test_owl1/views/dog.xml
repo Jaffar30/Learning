@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="dog_view_tree" model="ir.ui.view">
+        <field name="name">dog.view.tree</field>
+        <field name="model">dog</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name" />
+                <field name="is_aggressive" />
+                <field name="color" widget="color"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="dog_view_form" model="ir.ui.view">
+        <field name="name">dog.view.form</field>
+        <field name="model">dog</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="is_aggressive" />
+                        <field name="color" widget="color"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="dog_view_kanban" model="ir.ui.view">
+        <field name="name">dog.view.kanban</field>
+        <field name="model">dog</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="is_aggressive" class="o_kanban_small_column">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record" style="padding:10px;">
+
+                            <!-- Show Avatar Only If name == 'Lizard' -->
+                            <t t-if="record.name.raw_value == 'Lizard'">
+                                <img t-att-src="'/test_owl1/static/src/imgs/frog.jpg'"
+                                     class="o_kanban_avatar"
+                                     style="width:60px; height:60px; border-radius:50%; margin-bottom:10px;" />
+                            </t>
+
+                            <!-- Name -->
+                            <div>
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                            </div>
+
+                            <!-- Aggressive -->
+                            <div>
+                                Aggressive: <field name="is_aggressive" />
+                            </div>
+
+                            <!-- Color -->
+                            <div>
+                                <field name="color" widget="color"/>
+                            </div>
+
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+</odoo>

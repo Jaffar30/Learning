@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="laptop_view_tree" model="ir.ui.view">
+        <field name="name">laptop.view.tree</field>
+        <field name="model">laptop</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="brand"/>
+                <field name="model"/>
+                <field name="price"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="laptop_view_form" model="ir.ui.view">
+        <field name="name">laptop.view.form</field>
+        <field name="model">laptop</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="brand"/>
+                        <field name="model"/>
+                        <field name="price"/>
+                        <field name="is_ai_used" />
+                    </group>
+                    <notebook>
+                        <page name="ai_comment" string="AI Comment" invisible="not is_ai_used">
+                            <field name="ai_comment" readonly="1" force_save="1"/>
+                        </page>
+                        <page name="ai_suggestion" string="AI Suggestion" invisible="not is_ai_used">
+                            <field name="ai_suggestion" readonly="1" force_save="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

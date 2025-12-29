@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="dog_root_menu"
+        name="Dog Root"
+        sequence="0"/>
+
+        <menuitem
+            id="dog_menu"
+            name="Dogs"
+            action="dog_action"
+            parent="dog_root_menu"
+            sequence="10"/>
+
+        <menuitem
+            id="dog_js_menu"
+            name="Dogs JS"
+            action="action_js_dog"
+            parent="dog_root_menu"
+            sequence="20"/>
+
+</odoo>
