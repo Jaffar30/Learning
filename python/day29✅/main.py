@@ -2,19 +2,44 @@ from tkinter import *
 from tkinter import messagebox
 from random import choice , randint , shuffle
 import pyperclip
+import json
 def add():
     web = web_entry.get()
     email = email_entry.get()
     password = password_entry.get()
+    data_save = {
+        web:{
+            "email" : email,
+            "password":password
+        }
+    }
     if len(web) == 0 or len(email) == 0 or len(password) == 0:
         messagebox.showinfo(title="missing fields" , message="Their is some fields empty \nSorry, you should fill it")
     else:
         is_true = messagebox.askokcancel(title=web , message=f"Do you want to save these \nEmail: {email}\n Password: {password}")
         if is_true:
-            with open("password.txt" , 'a') as data:
-                data.write(f"Website: {web} - Email: {email} - Password: {password}\n")
-            web_entry.delete(0,END)
-            password_entry.delete(0,END)
+            # try:
+            #     with open("password.json","r") as file:
+            #         data = json.load(file)
+            #         data.update(data_save)
+            #     with open("password.json" , "w") as file:
+            #         json.dump(data , file , indent=4)
+            # except:
+            #     with open("password.json" , "w") as file:
+            #         json.dump(data_save , file , indent=4)
+            try:
+                with open("password.json" , "w") as file:
+                    data = json.load(file)
+            except FileNotFoundError:
+                with open("password.json" , "w") as file:
+                    json.dump(data_save,data,indent=4)
+            else:
+                data.update(data_save)
+                with open("password.json" , "w") as file:
+                    json.dump(data,file,indent=4)
+            finally:
+                web_entry.delete(0,END)
+                password_entry.delete(0,END)
 def generate_pass():
     password_entry.delete(0,END)
     letter =  [ 'a' , 'b' , 'c' , 'd' , 'e' , 'f' , 'g' , 'h' , 'i' , 'j' , 'k' , 'l' , 'm' , 'n' , 'o' , 'p' , 'q' , 'r' , 's' , 't' , 'u' , 'v' , 'w' , 'x' , 'y' , 'z' ]
@@ -29,6 +54,24 @@ def generate_pass():
     password_entry.insert(0,password)
     pyperclip.copy(password)
 
+def search():
+    web = web_entry.get()
+    try:
+        with open("password.json" , "r") as file:
+            data = json.load(file)
+    except:
+        messagebox.showinfo(title="No data" , message="Their is no file 'password.json'")
+    else:
+        email = ""
+        password = ""
+        for value in data:
+            if value == web:
+                email = data[value]['email']
+                password = data[value]['password']
+        if email and password:
+            messagebox.showinfo(title="Result" , message=f"Email : {email}\n Password: {password}")
+        else:
+            messagebox.showinfo(title="No data" , message=f"You not have email & password for {web}")
 
 window = Tk()
 window.config(padx=20,pady=20)
@@ -45,8 +88,8 @@ email_label.grid(row=2,column=0)
 password_label = Label(text='Password:')
 password_label.grid(row=3,column=0)
 
-web_entry = Entry(width=35)
-web_entry.grid(row=1,column=1,columnspan=2)
+web_entry = Entry(width=21)
+web_entry.grid(row=1,column=1)
 email_entry = Entry(width=35)
 email_entry.grid(row=2,column=1,columnspan=2)
 email_entry.insert(0,"ahmed@gmail.com")
@@ -57,5 +100,7 @@ generate_button = Button(text='Generate Password',command=generate_pass)
 generate_button.grid(row=3,column=2)
 add_button = Button(text='add',width=35,command=add)
 add_button.grid(row=4,column=1,columnspan=2)
+search_button = Button(text="Search" , command=search)
+search_button.grid(column=2,row=1)
 
 window.mainloop()

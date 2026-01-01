@@ -7,5 +7,9 @@ while True:
     user_input = input("Enter word: ").upper()
     if user_input == '0':
         break
-    nato_result = [nato_dict[word] for word in user_input]
-    print(nato_result)
+    try:
+        nato_result = [nato_dict[word] for word in user_input]
+    except KeyError:
+        print("Please enter text")
+    else:
+        print(nato_result)
