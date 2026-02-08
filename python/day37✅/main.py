@@ -4,8 +4,8 @@ from datetime import datetime
 pixela_endpoit = "https://pixe.la/v1/users"
 
 user = {
-    'token' : 'AhmedAhmed123',
-    'username' : 'ahmed2309',
+    'token' : 
+    'username' : 
     'agreeTermsOfService' : 'yes',
     'notMinor' : 'yes'
 }
@@ -22,7 +22,7 @@ graph={
     'color' : 'kuro'
 }
 header = {
-    'X-USER-TOKEN' : 'AhmedAhmed123'
+    'X-USER-TOKEN' : 
 }
 # response = requests.post(url=graph_url , json=graph , headers=header)
 # print(response.text)
